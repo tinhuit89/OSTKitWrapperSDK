@@ -1,13 +1,21 @@
 package capo.mobile.sdk.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import capo.mobile.sdk.R;
+import capo.mobile.sdk.common.Constants;
+import capo.ostkit.sdk.OstWrapperSdk;
+import capo.ostkit.sdk.service.VolleyRequestCallback;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +55,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == btnCreateUser) {
-            changeActivitys(MainTabActivty.class);
+//            changeActivitys(MainTabActivty.class);
+            Map<String, String> params = new HashMap<>();
+            params.put("page_no", "1");
+            params.put("filter", "all");
+            params.put("order", "desc");
+            params.put("order_by", "creation_time");
+            params.put("page_no", "1");
+//            OstWrapperSdk ostWrapperSdk = new OstWrapperSdk(MainActivity.this, Constants.API_KEY, Constants.SECRET);
+//            ostWrapperSdk.createRequest(OstWrapperSdk.USER_LIST, params).execute(new VolleyRequestCallback() {
+//                @Override
+//                public void callback(Context context, Boolean isSuccess, String result) {
+//                    Log.d("caposdk", result);
+//                }
+//            });
+
+
         } else if (v == btnListUser) {
             changeActivitys(MainTabActivty.class);
         } else if (v == btnTransDetail) {
