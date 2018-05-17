@@ -1,12 +1,6 @@
-package capo.ostkit.sdk;
+package capo.ostkit.sdk.wrapper;
 
 import android.content.Context;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import capo.ostkit.sdk.service.VolleyRequestCallback;
-import capo.ostkit.sdk.volley.OstKitRequest;
 
 /**
  * Created by TinhVC on 5/16/18.
@@ -16,6 +10,7 @@ public class OstWrapperSdk {
     private Context mContext;
     private String mApiKey;
     private String mSecret;
+    private String mBaseUrl = OstWrapperSdk.BASE_URL;
 
     /*Define url request*/
     public static final String BASE_URL = "https://playgroundapi.ost.com";
@@ -44,9 +39,13 @@ public class OstWrapperSdk {
         return mSecret;
     }
 
-    public OstKitRequest createRequest(String endPoint, Map<String, String> params) {
-        OstKitRequest ostKitRequest = new OstKitRequest(mContext, getApiKey(), getSecret(), endPoint, params, BASE_URL);
-        return ostKitRequest;
+    public UserWrapper getUserWrapper() {
+        UserWrapper userWrapper = new UserWrapper(mContext, mApiKey, mSecret, mBaseUrl);
+        return userWrapper;
     }
 
+    public TransactionTypeWrapper getTransactionTypeWrapper() {
+        TransactionTypeWrapper transactionTypeWrapper = new TransactionTypeWrapper(mContext, mApiKey, mSecret, mBaseUrl);
+        return transactionTypeWrapper;
+    }
 }

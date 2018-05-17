@@ -6,6 +6,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -16,12 +18,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class Utilities {
     public static String getTimestamp() {
-//        Calendar calendar = Calendar.getInstance();
-//        java.util.Date now = calendar.getTime();
-//        java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
-////        return String.valueOf((currentTimestamp.getTime() / 1000L));
-//        Log.d("caposdk", String.valueOf((currentTimestamp.getTime() / 1000L)));
-//        Log.d("caposdk", String.valueOf(System.currentTimeMillis() / 1000));
         return String.valueOf(System.currentTimeMillis() / 1000);
     }
 
@@ -49,5 +45,27 @@ public class Utilities {
 
         }
         return digest;
+    }
+
+    public static String generateQueryString(String _endPoint, Map<String, String> mParams) {
+        String mStringToSign = "";
+        // TreeMap to store values of HashMap
+        TreeMap<String, String> sorted = new TreeMap<>(mParams);
+
+        for (Map.Entry<String, String> entry : sorted.entrySet()) {
+            if (mStringToSign.equalsIgnoreCase("")) {
+                mStringToSign = _endPoint + "?" + entry.getKey().toLowerCase() + "=" + (entry.getValue().toString().replace(" ", "+"));
+            } else {
+                mStringToSign += "&" + entry.getKey().toLowerCase() + "=" + (entry.getValue().toString().replace(" ", "+"));
+            }
+        }
+        Logger.log("QueryString: " + mStringToSign);
+        return mStringToSign;
+    }
+
+    public static String generateApiSignature(String mStringToSign, String mSecret) {
+        String mApiSignature = Utilities.hmacDigest(mStringToSign, mSecret, "HmacSHA256");
+        Logger.log("ApiSignature: " + mApiSignature);
+        return mApiSignature;
     }
 }

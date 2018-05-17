@@ -32,11 +32,11 @@ public class VolleyRequestQueue {
         this.method = _method;
         this.param = _param;
 
-        executeReqeust();
+        executeRequest();
     }
 
     /*EXCUTE REQUEST*/
-    private void executeReqeust() {
+    private void executeRequest() {
         Logger.log("Url: " + mUrl + " ->> " + param.toString());
         final long t0 = System.currentTimeMillis();
         currentRequest = new StringRequest(method, mUrl,
