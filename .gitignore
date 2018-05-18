@@ -7,6 +7,6 @@
 /build
 /captures
 .externalNativeBuild
-/app
-app/*
+/demo-app
+demo-app/*
 Constants.java
