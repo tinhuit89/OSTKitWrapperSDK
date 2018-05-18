@@ -1,1 +1,1 @@
-include ':app', ':caposdk'
+include ':demo-app', ':OSTKitWrapperSDK'

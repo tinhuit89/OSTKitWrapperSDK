@@ -8,8 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/caposdk" />
+            <option value="$PROJECT_DIR$/OSTKitWrapperSDK" />
+            <option value="$PROJECT_DIR$/demo-app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
