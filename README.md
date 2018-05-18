@@ -25,7 +25,7 @@ Simple SDK solution.
 
 Add it in your root build.gradle at the end of repositories:
 
-```
+```groovy
 allprojects {
 	repositories {
 		...
@@ -35,7 +35,7 @@ allprojects {
 ```
 Add the dependency
 
-```
+```groovy
 dependencies {
 	implementation 'com.github.tinhuit89:OSTKitWrapperSDK:1.0.2'
 }
@@ -45,13 +45,13 @@ dependencies {
 
 ### Initialize SDK
 
-```
+```java
 OstWrapperSdk ostWrapperSdk = new OstWrapperSdk(context, API_KEY, SECRET);
 ```
 
 ### Use SDK function example
 
-```
+```java
 ostWrapperSdk.getUserWrapper().getListUser(nextPage, new VolleyRequestCallback() {
             @Override
             public void callback(Context context, Boolean isSuccess, String result) {
