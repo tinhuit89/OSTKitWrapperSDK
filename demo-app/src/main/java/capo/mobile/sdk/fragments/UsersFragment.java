@@ -248,6 +248,7 @@ public class UsersFragment extends Fragment implements View.OnClickListener {
                             removeFooter();
                         }
                     } catch (JSONException ex) {
+                        ex.printStackTrace();
                         isLoading = true;
                         removeFooter();
                     }

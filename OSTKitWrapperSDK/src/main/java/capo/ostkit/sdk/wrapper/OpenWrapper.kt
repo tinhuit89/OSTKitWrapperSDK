@@ -25,9 +25,11 @@ open class OpenWrapper {
 
         if (endPoint.equals(OstWrapperSdk.USER_LIST, false)) return Request.Method.GET
 
-        if (endPoint.equals(OstWrapperSdk.USER_AIRDROP_DROP, false)) return Request.Method.POST
+        if (endPoint.equals(OstWrapperSdk.AIRDROP_EXECUTE, false)) return Request.Method.POST
 
-        if (endPoint.equals(OstWrapperSdk.USER_AIRDROP_STATUS, false)) return Request.Method.GET
+        if (endPoint.equals(OstWrapperSdk.AIRDROP_RETRIEVE, false)) return Request.Method.GET
+
+        if (endPoint.equals(OstWrapperSdk.AIRDROP_LIST, false)) return Request.Method.GET
 
         if (endPoint.equals(OstWrapperSdk.TRANSACTION_TYPE_CREATE, false)) return Request.Method.POST
 

@@ -17,8 +17,9 @@ public class OstWrapperSdk {
     public static final String USER_CREATE = "/users/create";
     public static final String USER_EDIT = "/users/edit";
     public static final String USER_LIST = "/users/list";
-    public static final String USER_AIRDROP_DROP = "/users/airdrop/drop";
-    public static final String USER_AIRDROP_STATUS = "/users/airdrop/status";
+    public static final String AIRDROP_EXECUTE = "/airdrops";
+    public static final String AIRDROP_RETRIEVE = "/airdrops/";
+    public static final String AIRDROP_LIST = "/airdrops";
     public static final String TRANSACTION_TYPE_CREATE = "/transaction-types/create";
     public static final String TRANSACTION_TYPE_EDIT = "/transaction-types/edit";
     public static final String TRANSACTION_TYPE_LIST = "/transaction-types/list";

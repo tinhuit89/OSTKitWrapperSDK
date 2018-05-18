@@ -3,7 +3,6 @@ package capo.ostkit.sdk.wrapper;
 import android.content.Context
 import capo.ostkit.sdk.service.VolleyRequestCallback
 import capo.ostkit.sdk.utils.Utilities
-import java.time.temporal.TemporalAmount
 
 /**
  * Created by TinhVC on 5/17/18.
@@ -76,46 +75,6 @@ class UserWrapper(_context: Context, _apiKey: String, _secret: String, _baseUrl:
         params.put("filter", filter)
         params.put("order_by", orderBy)
         params.put("order", order)
-        params.put("request_timestamp", mRequestTimestamp)
-        params.put("api_key", apiKey)
-
-        var stringToSign = Utilities.generateQueryString(endPoint, params)
-        var apiSignature = Utilities.generateApiSignature(stringToSign, secret)
-        params.put("signature", apiSignature)
-        this.execute(callBack)
-    }
-
-    /*
-    * Post to /users/airdrop/drop to request an airdrop of a
-    * certain amount of branded tokens to a set of users.
-    * This API allows end-users to receive or be awarded a selected amount
-    * of branded tokens to be able participate in the branded token economy.
-    * */
-    @JvmOverloads
-    fun drop(amount: String, callBack: VolleyRequestCallback, listType: String = "never_airdropped") {
-        this.endPoint = OstWrapperSdk.USER_AIRDROP_DROP
-        val mRequestTimestamp = Utilities.getTimestamp()
-        params.put("amount", amount)
-        params.put("list_type", listType) // optional: all/never_airdropped
-        params.put("request_timestamp", mRequestTimestamp)
-        params.put("api_key", apiKey)
-
-        var stringToSign = Utilities.generateQueryString(endPoint, params)
-        var apiSignature = Utilities.generateApiSignature(stringToSign, secret)
-        params.put("signature", apiSignature)
-        this.execute(callBack)
-    }
-
-    /*
-    * Send a GET request to /users/airdrop/status to receive the airdrop status.
-    * Get the status of the airdrop of branded tokens.
-    * This API can be used to understand which stage the
-    * processing of airdropping the tokens are going through.
-    * */
-    fun dropStatus(airDropUuid: String, callBack: VolleyRequestCallback) {
-        this.endPoint = OstWrapperSdk.USER_AIRDROP_DROP
-        val mRequestTimestamp = Utilities.getTimestamp()
-        params.put("airdrop_uuid", airDropUuid)
         params.put("request_timestamp", mRequestTimestamp)
         params.put("api_key", apiKey)
 
