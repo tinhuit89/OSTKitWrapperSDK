@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Mobile-SDK.iml" filepath="$PROJECT_DIR$/Mobile-SDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/OSTKitWrapperSDK/caposdk.iml" filepath="$PROJECT_DIR$/OSTKitWrapperSDK/caposdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mobile-SDK.iml" filepath="$PROJECT_DIR$/Mobile-SDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OSTKitWrapperSDK/OSTKitWrapperSDK.iml" filepath="$PROJECT_DIR$/OSTKitWrapperSDK/OSTKitWrapperSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo-app/app.iml" filepath="$PROJECT_DIR$/demo-app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OSTKitWrapperSDK/caposdk.iml" filepath="$PROJECT_DIR$/OSTKitWrapperSDK/caposdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-app/demo-app.iml" filepath="$PROJECT_DIR$/demo-app/demo-app.iml" />
     </modules>
   </component>
 </project>
