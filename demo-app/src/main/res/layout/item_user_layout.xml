@@ -42,18 +42,29 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@+id/imgTranfer"
+            android:layout_toLeftOf="@+id/rlExecute"
             android:text="20D69"
             android:textColor="#4A4A4A"
             android:textSize="14dp" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imgTranfer"
+
+        <RelativeLayout
+            android:id="@+id/rlExecute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/ic_transfer_balance" />
+            android:layout_centerVertical="true">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgTranfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                app:srcCompat="@drawable/ic_transfer_balance" />
+
+
+        </RelativeLayout>
 
 
     </RelativeLayout>

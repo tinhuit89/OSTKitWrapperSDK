@@ -3,6 +3,9 @@ package capo.mobile.sdk.common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Utilities {
 
     public static Boolean checkKeyValid(JSONObject jSonOb, String key) {
@@ -32,6 +35,12 @@ public class Utilities {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static int getRandom(int size) {
+        Random randomGenerator = new Random();
+        int indexRandom = randomGenerator.nextInt(size);
+        return indexRandom;
     }
 }
 

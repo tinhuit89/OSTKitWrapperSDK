@@ -16,6 +16,7 @@ import java.util.List;
 
 import capo.mobile.sdk.Interface.MultibleCallback;
 import capo.mobile.sdk.R;
+import capo.mobile.sdk.activities.MainTabActivty;
 import capo.mobile.sdk.models.TransactionTypeModel;
 
 
@@ -41,6 +42,9 @@ public class TransactionTypesAdapter extends ArrayAdapter<TransactionTypeModel> 
     public void addListItems(List<TransactionTypeModel> popups) {
         for (TransactionTypeModel obj : popups) {
             add(obj);
+            if (obj.getName().equalsIgnoreCase("Reward")) {
+                ((MainTabActivty) activity).setTransactionTypeReward(obj);
+            }
         }
         notifyDataSetChanged();
     }
@@ -70,7 +74,7 @@ public class TransactionTypesAdapter extends ArrayAdapter<TransactionTypeModel> 
 
         holder.btnItem.setText(item.getName());
 
-        convertView.setOnClickListener(new View.OnClickListener() {
+        holder.btnItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callback.callback(position, item);

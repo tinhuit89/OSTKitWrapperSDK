@@ -22,14 +22,18 @@ import capo.mobile.sdk.models.UserModel;
 
 public class UsersAdapter extends ArrayAdapter<UserModel> {
 
+    public static final String ITEM_CLICK = "USER_ITEM_CLICK";
+    public static final String EXECUTE_CLICK = "EXECUTE_CLICK";
     private Activity activity;
     private MultibleCallback callback;
 
     class ViewHolder {
+
         private RelativeLayout rlItem;
         private TextView tvTotalAirdroppedTokens;
         private TextView tvUserName;
         private TextView tvBalance;
+        private RelativeLayout rlExecute;
         private AppCompatImageView imgTranfer;
     }
 
@@ -66,6 +70,7 @@ public class UsersAdapter extends ArrayAdapter<UserModel> {
             holder.tvTotalAirdroppedTokens = convertView.findViewById(R.id.tvTotalAirdroppedTokens);
             holder.tvUserName = convertView.findViewById(R.id.tvUserName);
             holder.tvBalance = convertView.findViewById(R.id.tvBalance);
+            holder.rlExecute = convertView.findViewById(R.id.rlExecute);
             holder.imgTranfer = convertView.findViewById(R.id.imgTranfer);
             convertView.setTag(holder);
         } else {
@@ -80,7 +85,14 @@ public class UsersAdapter extends ArrayAdapter<UserModel> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.callback(position, item);
+                callback.callback(ITEM_CLICK, position, item);
+            }
+        });
+
+        holder.rlExecute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.callback(EXECUTE_CLICK, position, item);
             }
         });
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +23,7 @@ import capo.mobile.sdk.Interface.MultibleCallback;
 import capo.mobile.sdk.R;
 import capo.mobile.sdk.activities.MainTabActivty;
 import capo.mobile.sdk.adapters.TransactionTypesAdapter;
+import capo.mobile.sdk.common.Constants;
 import capo.mobile.sdk.common.Utilities;
 import capo.mobile.sdk.libs.ProgressWheel;
 import capo.mobile.sdk.models.TransactionTypeModel;
@@ -38,6 +40,7 @@ public class TransactionsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private String TAG = "caposdk";
     private View footerView;
     private ViewGroup viewGroup;
     private View view;
@@ -91,6 +94,27 @@ public class TransactionsFragment extends Fragment {
         transactionTypesAdapter = new TransactionTypesAdapter(getActivity(), new MultibleCallback() {
             @Override
             public void callback(Object... objects) {
+                TransactionTypeModel transactionTypeModel = (TransactionTypeModel) objects[1];
+                String typeKind = transactionTypeModel.getKind();
+                String nameKind = transactionTypeModel.getName();
+                Log.d(TAG, typeKind);
+
+                String fromUserId = "";
+                String toUserId = "";
+                if (typeKind.equalsIgnoreCase("company_to_user")) {
+                    fromUserId = Constants.COMPANY_UUID;
+                    toUserId = ((MainTabActivty) getActivity()).listUser.get(Utilities.getRandom(((MainTabActivty) getActivity()).listUser.size())).getId();
+                } else if (typeKind.equalsIgnoreCase("user_to_company")) {
+                    fromUserId = ((MainTabActivty) getActivity()).listUser.get(Utilities.getRandom(((MainTabActivty) getActivity()).listUser.size())).getId();
+                    toUserId = Constants.COMPANY_UUID;
+                } else if (typeKind.equalsIgnoreCase("user_to_user")) {
+                    fromUserId = ((MainTabActivty) getActivity()).listUser.get(Utilities.getRandom(((MainTabActivty) getActivity()).listUser.size())).getId();
+                    toUserId = ((MainTabActivty) getActivity()).listUser.get(Utilities.getRandom(((MainTabActivty) getActivity()).listUser.size())).getId();
+                }
+                Log.d(TAG, fromUserId);
+                Log.d(TAG, toUserId);
+
+                ((MainTabActivty) getActivity()).executeTransactionType(fromUserId, toUserId, nameKind);
 
             }
         });

@@ -23,6 +23,7 @@ import capo.mobile.sdk.Interface.MultibleCallback;
 import capo.mobile.sdk.R;
 import capo.mobile.sdk.activities.MainTabActivty;
 import capo.mobile.sdk.adapters.UsersAdapter;
+import capo.mobile.sdk.common.Constants;
 import capo.mobile.sdk.common.Utilities;
 import capo.mobile.sdk.libs.ProgressWheel;
 import capo.mobile.sdk.models.UserModel;
@@ -88,6 +89,7 @@ public class UsersFragment extends Fragment implements View.OnClickListener {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                ((MainTabActivty) getActivity()).listUser = new ArrayList<>();
                 isLoading = false;
                 nextPage = 1;
                 setUsersAdapter();
@@ -104,47 +106,55 @@ public class UsersFragment extends Fragment implements View.OnClickListener {
         usersAdapter = new UsersAdapter(getActivity(), new MultibleCallback() {
             @Override
             public void callback(Object... objects) {
-                final int posChange = ((int) objects[0]);
-                final UserModel userModel = ((UserModel) objects[1]);
-                PopupUser popupUser = new PopupUser(getActivity(), PopupUser.EDIT_USER, userModel, new MultibleCallback() {
-                    @Override
-                    public void callback(Object... objects) {
-                        popupLoading.showPopup();
-                        ((MainTabActivty) getActivity()).ostWrapperSdk.getUserWrapper().editUser(userModel.getUuid(), objects[1].toString(), new VolleyRequestCallback() {
-                            @Override
-                            public void callback(Context context, Boolean isSuccess, String result) {
+                final int posChange = ((int) objects[1]);
+                final UserModel userModel = ((UserModel) objects[2]);
+                if (String.valueOf(objects[0]).equalsIgnoreCase(UsersAdapter.ITEM_CLICK)) {
+                    PopupUser popupUser = new PopupUser(getActivity(), PopupUser.EDIT_USER, userModel, new MultibleCallback() {
+                        @Override
+                        public void callback(Object... objects) {
+                            popupLoading.showPopup();
+                            ((MainTabActivty) getActivity()).ostWrapperSdk.getUserWrapper().editUser(userModel.getUuid(), objects[1].toString(), new VolleyRequestCallback() {
+                                @Override
+                                public void callback(Context context, Boolean isSuccess, String result) {
 //                                Log.d("caposdk", result);
-                                if (isSuccess) {
-                                    try {
-                                        JSONObject jsonResult = new JSONObject(result);
-                                        Boolean isSuccessApi = jsonResult.getBoolean("success");
-                                        if (isSuccessApi) {
+                                    if (isSuccess) {
+                                        try {
+                                            JSONObject jsonResult = new JSONObject(result);
+                                            Boolean isSuccessApi = jsonResult.getBoolean("success");
+                                            if (isSuccessApi) {
 
-                                            JSONArray arrayData = jsonResult.getJSONObject("data").getJSONArray("economy_users");
-                                            if (arrayData.length() > 0) {
-                                                UserModel itemModel = new UserModel();
-                                                itemModel.setData(arrayData.getJSONObject(0));
-                                                usersAdapter.getItem(posChange).setName(itemModel.getName());
-                                                usersAdapter.notifyDataSetChanged();
-                                                lvItem.smoothScrollToPosition(posChange);
+                                                JSONArray arrayData = jsonResult.getJSONObject("data").getJSONArray("economy_users");
+                                                if (arrayData.length() > 0) {
+                                                    UserModel itemModel = new UserModel();
+                                                    itemModel.setData(arrayData.getJSONObject(0));
+                                                    usersAdapter.getItem(posChange).setName(itemModel.getName());
+                                                    usersAdapter.notifyDataSetChanged();
+                                                    lvItem.smoothScrollToPosition(posChange);
+                                                }
+                                            } else {
+                                                JSONObject jsonError = jsonResult.getJSONObject("err");
+                                                Toast.makeText(getActivity(), jsonError.getString("msg"), Toast.LENGTH_SHORT).show();
                                             }
-                                        } else {
-                                            JSONObject jsonError = jsonResult.getJSONObject("err");
-                                            Toast.makeText(getActivity(), jsonError.getString("msg"), Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException ex) {
+                                            Logger.log(ex.getLocalizedMessage());
+                                            Toast.makeText(getActivity(), ex.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                         }
-                                    } catch (JSONException ex) {
-                                        Logger.log(ex.getLocalizedMessage());
-                                        Toast.makeText(getActivity(), ex.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
-                                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+                                    popupLoading.hidePopup();
                                 }
-                                popupLoading.hidePopup();
-                            }
-                        });
-                    }
-                });
-                popupUser.show();
+                            });
+                        }
+                    });
+                    popupUser.show();
+                } else if (String.valueOf(objects[0]).equalsIgnoreCase(UsersAdapter.EXECUTE_CLICK)) {
+
+                    String fromUserId = Constants.COMPANY_UUID;
+                    String toUserId = userModel.getId();
+                    String nameKind = ((MainTabActivty) getActivity()).transactionTypeReward.getName();
+                    ((MainTabActivty) getActivity()).executeTransactionType(fromUserId, toUserId, nameKind);
+                }
             }
         });
         lvItem.setAdapter(usersAdapter);
@@ -158,6 +168,8 @@ public class UsersFragment extends Fragment implements View.OnClickListener {
         } catch (Exception e) {
 
         }
+
+        ((MainTabActivty) getActivity()).listUser.addAll(listItemAdd);
         usersAdapter.addListItems(listItemAdd);
     }
 
